@@ -1,0 +1,109 @@
+<% layout('layouts/boilerplate') -%>
+
+<div class="row">
+  <!-- Includeing the flash.ejs -->
+
+  <%- include('../partials/flash') %>
+
+  <div class="col-lg-4 col-sm-12 mx-auto mb-4">
+    <div class="card mx-auto" style="width: 22rem">
+      <img src="<%= product.img %>" class="card-img-top" alt="img" />
+      <div class="card-body">
+        <h5 class="card-title"><%= product.name %></h5>
+        <h5>$ <%= product.price %></h5>
+        <p class="card-text"><%= product.desc %></p>
+        <a href="/products/<%= product._id %>" class="btn btn-primary btn-sm"
+          >Buy Now</a
+        >
+        <a href="/products/<%= product._id %>" class="btn btn-success btn-sm"
+          >Add to Cart</a
+        >
+        <!-- This edit and delete only show when the user is logged 
+          In and the user should be the paritcular Seller only -->
+        <% if (currentUser && currentUser.role === 'seller' && (product.author.equals(currentUser._id ))) { %>
+        <a href="/products/<%= product._id %>/edit" class="btn btn-info btn-sm"
+          >Edit</a
+        >
+
+        <!-- Form is block element we have to make it inline -->
+        <form
+          class="d-inline"
+          action="/products/<%= product._id %>?_method=DELETE"
+          method="post"
+        >
+          <button class="btn btn-danger btn-sm">Delete</button>
+        </form>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <!-- border border-3 to check the content -->
+  <div class="col-lg-4 col-sm-12 mx-auto">
+    <h2 class="display-6">Leave Your Review</h2>
+
+    <!-- Review -->
+    <form
+      class="mb-4 needs-validation"
+      action="/products/<%= product._id %>/review"
+      method="post"
+      novalidate
+    >
+      <div class="mb-2">
+        <fieldset class="starability-basic">
+          <!-- <legend>Rating:</legend> -->
+          <input
+            type="radio"
+            id="no-rate"
+            class="input-no-rate"
+            name="rating"
+            value="0"
+            checked
+            aria-label="No rating."
+          />
+          <input type="radio" id="first-rate1" name="rating" value="1" />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input type="radio" id="first-rate2" name="rating" value="2" />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input type="radio" id="first-rate3" name="rating" value="3" />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input type="radio" id="first-rate4" name="rating" value="4" />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input type="radio" id="first-rate5" name="rating" value="5" />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
+
+        <!-- <label for="rating">Rating</label>
+        <input class="form-control" name="rating" type="range" id="rating" 
+        min="0" max="5"/>   -->
+      </div>
+
+      <div class="mb-2">
+        <label for="comment">Description</label>
+        <textarea
+          class="form-control"
+          name="comment"
+          id="comment"
+          rows="3"
+          required
+        ></textarea>
+      </div>
+
+      <button class="btn btn-sm btn-outline-success">Submit</button>
+    </form>
+
+    <!-- It will Show Submitted Reviews -->
+    <div>
+      <% for(let review of product.reviews ) { %>
+      <div class="card my-2">
+        <div class="card-header">
+          <p class="starability-result" data-rating="<%= review.rating %>"></p>
+        </div>
+        <div class="card-body">
+          <p class="card-text"><%= review.comment %></p>
+          <a href="#" class="btn btn-sm btn-danger">Delete Review</a>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>

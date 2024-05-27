@@ -1,0 +1,81 @@
+<% layout('layouts/boilerplate') -%>
+<div class="row">
+  <div class="col-7 mx-auto">
+    <!-- Includeing the flash.ejs -->
+    <%- include('../partials/flash') %>
+
+    <form action="/signup" class="needs-validation" method="POST" novalidate>
+      <div class="mb-3">
+        <label for="username" class="form-label">User Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          placeholder="Name"
+          name="username"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">E-Mail</label>
+        <input
+          type="text"
+          class="form-control"
+          id="email"
+          placeholder="E-Mail"
+          name="email"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <!-- Role Buyer or Seller -->
+      <div class="mb-3">
+        <p>Role:</p>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="role"
+            value="buyer"
+            id="flexRadioDefault1"
+            checked
+          />
+          <label class="form-check-label" for="flexRadioDefault1">
+            Buyer
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="role"
+            value="seller"
+            id="flexRadioDefault2"
+          />
+          <label class="form-check-label" for="flexRadioDefault2">
+            Seller
+          </label>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="Password" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="Password"
+          name="password"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-outline-success btn-sm">
+        SingUp
+      </button>
+      <p class="mt-3">Already have an account? <a href="/login">logIn</a></p>
+    </form>
+  </div>
+</div>

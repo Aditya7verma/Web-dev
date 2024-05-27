@@ -1,0 +1,41 @@
+<% layout('layouts/boilerplate') -%>
+
+<!-- Includeing the flash.ejs -->
+
+<%- include('../partials/flash') %>
+
+<section class="d-flex flex-wrap gap-3 justify-content-center mb-4">
+  <% for( let product of products ) { %>
+  <div class="card" style="width: 18rem">
+    <div class="position-relative">
+      <img src="<%= product.img %>" class="card-img-top" alt="img" />
+
+      <span
+        class="badge text-bg-secondary position-absolute bottom-0 start-0 m-2"
+        ><%= product.avgRating %> &star; | <%= product.reviews.length %>
+      </span>
+    </div>
+
+    <div class="card-body">
+      <h5 class="card-title d-flex justify-content-between align-items-center">
+        <%= product.name %>
+        <!-- Adding the heart sign -->
+        <span class="btn">
+          <i
+            class="fa-regular fa-heart like-btn product-like-button"
+            product-id=" <%= product._id %>"
+          ></i>
+        </span>
+      </h5>
+
+      <h5>$ <%= product.price %></h5>
+      <p class="card-text"><%= product.desc %></p>
+      <a href="/products/<%= product._id %>" class="btn btn-primary btn-sm"
+        >Show product</a
+      >
+    </div>
+  </div>
+  <% } %>
+</section>
+
+<script src="/js/like.js"></script>

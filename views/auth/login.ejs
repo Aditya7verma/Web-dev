@@ -1,0 +1,37 @@
+<% layout('layouts/boilerplate') -%>
+<div class="row">
+  <div class="col-7 mx-auto">
+    <!-- Includeing the flash.ejs -->
+    <%- include('../partials/flash') %>
+
+    <form action="" class="needs-validation" method="POST" novalidate>
+      <div class="mb-3">
+        <label for="username" class="form-label">User Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          placeholder="Name"
+          name="username"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label for="Password" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="Password"
+          name="password"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-outline-success btn-sm">
+        LogIn
+      </button>
+      <p class="mt-3">Don't have an account? <a href="/signup">SingUp</a></p>
+    </form>
+  </div>
+</div>
