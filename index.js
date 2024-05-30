@@ -57,6 +57,10 @@ app.use((req, res, next) => {
   // console.log(req.session);
   // storing user in locals
   res.locals.currentUser = req.user;
+
+  // To display all items of cart in cart icon
+  // res.locals.totalItems = req.user.cart.length;
+
   res.locals.success = req.flash("success");
   // here we have to use error insted of reject
   res.locals.error = req.flash("error");
@@ -70,8 +74,12 @@ const reviewRoutes = require("./routes/review");
 
 const authRoutes = require("./routes/auth");
 
+const cartRoutes = require("./routes/cart");
+
 // ----------------- APIs
 const productAPI = require("./routes/api/productApi");
+// Linking the paymentApi
+const paymentAPI = require("./routes/api/paymentApi");
 
 app.use(productRoutes);
 
@@ -80,6 +88,10 @@ app.use(reviewRoutes);
 app.use(authRoutes);
 
 app.use(productAPI);
+
+app.use(cartRoutes);
+
+app.use(paymentAPI);
 
 // rendering the home.ejs file
 app.get("/", (req, res) => {

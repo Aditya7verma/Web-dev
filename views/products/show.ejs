@@ -12,15 +12,27 @@
         <h5 class="card-title"><%= product.name %></h5>
         <h5>$ <%= product.price %></h5>
         <p class="card-text"><%= product.desc %></p>
-        <a href="/products/<%= product._id %>" class="btn btn-primary btn-sm"
+
+        <!-- created an id for this btn to use in public/js/payment.js file -->
+        <a
+          href="/products/<%= product._id %>"
+          id="but-btn"
+          class="btn btn-primary btn-sm"
           >Buy Now</a
         >
-        <a href="/products/<%= product._id %>" class="btn btn-success btn-sm"
-          >Add to Cart</a
+
+        <!-- Linking the add to cart button with the cart.js route -->
+        <form
+          class="d-inline"
+          action="/user/<%= product._id %>/add"
+          method="post"
         >
+          <button class="btn btn-success btn-sm">Add to Cart</button>
+        </form>
+
         <!-- This edit and delete only show when the user is logged 
           In and the user should be the paritcular Seller only -->
-        <% if (currentUser && currentUser.role === 'seller' && (product.author.equals(currentUser._id ))) { %>
+        <% if (currentUser && currentUser.role === 'seller' && (product.author && product.author.equals(currentUser._id ))) { %>
         <a href="/products/<%= product._id %>/edit" class="btn btn-info btn-sm"
           >Edit</a
         >
@@ -107,3 +119,6 @@
     </div>
   </div>
 </div>
+
+<!-- Scrip to link the public/js/payment file to do DOM manipulation -->
+<script src="/js/payment.js"></script>

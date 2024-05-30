@@ -21,14 +21,24 @@
         <%= product.name %>
         <!-- Adding the heart sign -->
         <span class="btn">
+          <!-- here in <i> tag we created a user define attribute to get the 
+            product_id -->
+          <!-- here if we give space in ejsout tag then it will give error  -->
+          <% if (currentUser && currentUser.wishList.includes(product._id)) { %>
           <i
-            class="fa-regular fa-heart like-btn product-like-button"
-            product-id=" <%= product._id %>"
+            class="fa-solid fa-heart product-like-button"
+            product-Id="<%= product._id %>"
           ></i>
+          <% } else { %>
+          <i
+            class="fa-regular fa-heart product-like-button"
+            product-Id="<%= product._id %>"
+          ></i>
+          <% } %>
         </span>
       </h5>
 
-      <h5>$ <%= product.price %></h5>
+      <h5>&#8377; <%= product.price %></h5>
       <p class="card-text"><%= product.desc %></p>
       <a href="/products/<%= product._id %>" class="btn btn-primary btn-sm"
         >Show product</a

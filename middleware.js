@@ -6,7 +6,8 @@ const { productSchema, reviewSchema } = require("./schemas");
 
 module.exports.isLoggedIn = (req, res, next) => {
   // console.log(req.xhr);
-
+  // here the req should be an ajex  then it will return from here 
+  // without checking the 2nd if statement.
   if (req.xhr && !req.isAuthenticated()) {
     return res.status(401).json({
       success: false,
@@ -14,7 +15,7 @@ module.exports.isLoggedIn = (req, res, next) => {
     });
   }
 
-  // To chek if the user exist or not
+  // To chek if the user exist or not ,without APIs
   if (!req.isAuthenticated()) {
     req.flash("error", "You need to login first!");
     return res.redirect("/login");

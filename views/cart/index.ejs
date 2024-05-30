@@ -1,0 +1,101 @@
+<%- layout('layouts/boilerplate')%>
+
+<section class="container">
+  <%- include('../partials/flash') %>
+
+  <h1 class="display-6 mb-3 text-center fw-semibold">My Cart</h1>
+
+  <div class="row">
+    <!-- product desc part -->
+    <div class="col-lg-8">
+      <% for( let item of user.cart ) { %>
+
+      <div class="card mb-3 mx-auto" style="max-width: 700px">
+        <div class="row g-0">
+          <div class="col-md-4 border">
+            <img
+              src="<%= item.productId.img %>"
+              class="img-fluid rounded-start"
+              alt="..."
+              style="
+                max-height: 200px;
+                width: auto;
+                display: block;
+                margin: 0 auto;
+              "
+            />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5
+                class="card-title d-flex justify-content-between align-items-center"
+              >
+                <span> <%= item.productId.name %> </span>
+
+                <!-- Deleting the product from cart -->
+                <form
+                  class="d-inline"
+                  action="/user/<%= item.productId._id %>?_method=DELETE"
+                  method="post"
+                >
+                  <button style="border: none; background: none">
+                    <i
+                      class="fa-sharp fa-solid fa-trash btn"
+                      style="color: #787373"
+                    ></i>
+                  </button>
+                </form>
+              </h5>
+
+              <p class="card-text"><%= item.productId.desc %></p>
+              <div>
+                <!-- Add and romove button for product item -->
+                <form
+                  class="d-inline"
+                  action="/user/<%= item.productId._id %>/remove"
+                  method="post"
+                >
+                  <button class="btn btn-sm btn-outline-primary fw-bold">
+                    -
+                  </button>
+                </form>
+                <p class="d-inline"><%= item.quantity %></p>
+                <form
+                  class="d-inline"
+                  action="/user/<%= item.productId._id %>/add"
+                  method="post"
+                >
+                  <button class="btn btn-sm btn-outline-primary fw-bold">
+                    +
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+
+    <!-- Product Amount part -->
+    <div class="col-lg-4 mb-2">
+      <ul class="list-group">
+        <% for( let item of user.cart) { %>
+        <li class="list-group-item">
+          <span class="fw-bold"><%= item.productId.name %> :- </span>
+          <span>&#8377; <%= item.productId.price %></span> x
+          <span><%= item.quantity %></span>
+        </li>
+        <% } %>
+        <!-- Total Amount -->
+        <span class="fw-bold mt-2"
+          ><li class="list-group-item">
+            Total Amount :- &#8377; <%= totalAmount %>
+          </li></span
+        >
+      </ul>
+
+      <button class="btn btn-outline-success mt-3 btn-sm">Checkout</button>
+    </div>
+  </div>
+</section>

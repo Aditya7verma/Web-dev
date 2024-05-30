@@ -47,9 +47,11 @@
         <a class="nav-link pe-none">Hi, <%= currentUser.username %>!</a>
 
         <li class="nav-item">
-          <a href="#" class="nav-link"
+          <a href="/user/cart" class="nav-link"
             ><i class="fas fa-shopping-cart"></i>
-            <sup><span class="badge bg-danger"></span></sup>
+            <sup>
+              <span class="badge bg-danger"><%= currentUser.cart.length%></span>
+            </sup>
           </a>
         </li>
         <li class="nav-item">

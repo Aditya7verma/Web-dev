@@ -1,14 +1,13 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { isLoggedIn } = require('../../middleware');
-const User = require('../../models/user');
+const { isLoggedIn } = require("../../middleware");
+const User = require("../../models/user");
 
-router.post("/products/:productId/like", isLoggedIn, async (req, res) => {
+router.post("/products/:productId/like", isLoggedIn, async (req, res, next) => {
   const { productId } = req.params;
-
   const user = req.user;
   const isLike = req.user.wishList.includes(productId);
-
+  //   console.log(isLike);
   if (isLike) {
     req.user = await User.findByIdAndUpdate(
       user._id,
